@@ -49,12 +49,6 @@ export class CheckoutComponent {
             this.router.navigate(['./allorders']);
           }
         },
-        error: (err) => {
-          console.log(err);
-          if (err) {
-            this.router.navigate(['./cart']);
-          }
-        },
       });
   }
 }
