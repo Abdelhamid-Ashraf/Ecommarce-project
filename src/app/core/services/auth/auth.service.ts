@@ -31,6 +31,7 @@ export class AuthService {
   getUserData(): void {
     if (localStorage.getItem('token')) {
       this.userData = jwtDecode(localStorage.getItem('token')!);
+      console.log(jwtDecode(localStorage.getItem('token')!));
     }
   }
 

@@ -17,6 +17,7 @@ import { SearchPipe } from '../../shared/pipes/search/search.pipe';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
   private readonly toastrService = inject(ToastrService);
+  private readonly authService = inject(AuthService);
 
   private subscriptions: Subscription = new Subscription();
 
@@ -41,7 +43,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.showAllProducts();
     this.showAllCategories();
-    this.userData();
+
+    localStorage.setItem('cartOwner', this.authService.userData.id);
   }
 
   showAllProducts(): void {
@@ -67,15 +70,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['./details']);
   }
 
-  userData(): void {
-    this.cartService.getLoggedUserCart().subscribe({
-      next: (res) => {
-        if (res.status === 'success') {
-          localStorage.setItem('cartOwner', res.data.cartOwner);
-        }
-      },
-    });
-  }
   addToCart(id: string): void {
     this.cartService.addProductToCart(id).subscribe({
       next: (res) => {
