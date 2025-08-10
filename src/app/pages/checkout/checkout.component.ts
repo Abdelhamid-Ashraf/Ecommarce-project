@@ -45,6 +45,7 @@ export class CheckoutComponent {
         next: (res) => {
           console.log(res);
           if (res.status === 'success') {
+            open(res.session.url, '_self');
             this.router.navigate(['./allorders']);
           }
         },
