@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.showAllProducts();
     this.showAllCategories();
+    this.userData();
   }
 
   showAllProducts(): void {
@@ -66,6 +67,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['./details']);
   }
 
+  userData(): void {
+    this.cartService.getLoggedUserCart().subscribe({
+      next: (res) => {
+        if (res.status === 'success') {
+          localStorage.setItem('cartOwner', res.data.cartOwner);
+        }
+      },
+    });
+  }
   addToCart(id: string): void {
     this.cartService.addProductToCart(id).subscribe({
       next: (res) => {
