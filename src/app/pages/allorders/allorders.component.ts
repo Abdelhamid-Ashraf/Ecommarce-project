@@ -16,9 +16,6 @@ export class AllordersComponent implements OnInit {
 
   allOrders: IOrders[] = [];
 
-  // "688584ac409a4430418e5bfb"
-  // "688584ac409a4430418e5bfb"
-
   ngOnInit(): void {
     this.userOrders();
   }
