@@ -1,0 +1,50 @@
+<section class="container bg-gray-100 rounded shadow p-4 mx-auto">
+  <h1 class="text-center text-3xl text-green-600 mb-7">All orders</h1>
+
+  @for (order of allOrders; track order._id) {
+
+  <div class="border-b border-green-600 rounded mb-5">
+    <div class="flex flex-col justify-center me-auto gap-2">
+      <h2 class="text-2xl text-green-600">
+        Orders of {{ order.createdAt | date }}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-4 my-4 border-b border-gray-300 rounded">
+      @for (item of order.cartItems; track item._id) {
+      <div class="flex items-center justify-center gap-5 my-4">
+        <div class="flex items-center justify-center me-auto">
+          <div class="cursor-pointer" (click)="goDetails(item.product.id)">
+            <img
+              [src]="item.product.imageCover"
+              class="w-full h-[150px] object-contain"
+              alt=""
+            />
+          </div>
+
+          <div class="flex flex-col ps-4">
+            <h4>{{ item.product.title.split(" ", 2).join(" ") }}</h4>
+            <p>item ordered : {{ item.count }}</p>
+            <p>item Price : {{ item.price | currency : "GBP" }}</p>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="flex justify-around items-center mb-5">
+      <h3 class="text-xl text-green-600">
+        Total price : {{ order.totalOrderPrice | currency : "GBP" }}
+      </h3>
+
+      <h4 class="text-xl text-green-600">
+        Time of payment : {{ order.paidAt | date : "short" }}
+      </h4>
+      <p class="text-xl text-green-600">
+        Paid with : {{ order.paymentMethodType }}
+      </p>
+    </div>
+  </div>
+
+  }
+</section>

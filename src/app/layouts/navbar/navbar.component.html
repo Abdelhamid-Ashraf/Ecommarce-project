@@ -1,0 +1,178 @@
+<nav class="bg-gray-100 border-gray-200">
+  <div
+    class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-4 py-2"
+  >
+    <a
+      routerLink="/home"
+      class="flex items-center space-x-3 rtl:space-x-reverse"
+    >
+      <img src="/images/freshcart-logo.svg" alt="" />
+    </a>
+
+    <button
+      data-collapse-toggle="navbar-default"
+      type="button"
+      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+      aria-controls="navbar-default"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Open main menu</span>
+      <svg
+        class="w-5 h-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 17 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 1h15M1 7h15M1 13h15"
+        />
+      </svg>
+    </button>
+    <div class="hidden w-full md:flex flex-grow md:w-auto" id="navbar-default">
+      @if(isLogin()){
+      <ul
+        class="capitalize font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-1 rtl:space-x-reverse md:mt-0 md:border-0"
+      >
+        <li>
+          <a
+            routerLink="/home"
+            routerLinkActive="bg-green-600 text-white"
+            class="block py-2 px-3 text-gray-700 rounded-sm hover:bg-[#0f4d50] hover:text-[#c1e6ba] transition-all"
+            aria-current="page"
+          >
+            home
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/products"
+            routerLinkActive="bg-green-600 text-white"
+            class="block py-2 px-3 text-gray-700 rounded-sm hover:bg-[#0f4d50] hover:text-[#c1e6ba] transition-all"
+            aria-current="page"
+            >products</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/categories"
+            routerLinkActive="bg-green-600 text-white"
+            class="block py-2 px-3 text-gray-700 rounded-sm hover:bg-[#0f4d50] hover:text-[#c1e6ba] transition-all"
+            aria-current="page"
+            >categories</a
+          >
+        </li>
+      </ul>
+
+      }
+
+      <ul
+        class="ms-auto capitalize items-center font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-1 rtl:space-x-reverse md:mt-0 md:border-0"
+      >
+        <li>
+          <a
+            href="#"
+            class="block py-2 px-3 rounded-sm md:p-2 hover:text-[#4da674] transition-all"
+            aria-current="page"
+            ><i class="fab fa-instagram"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="block py-2 px-3 rounded-sm md:p-2 hover:text-[#4da674] transition-all"
+            aria-current="page"
+            ><i class="fab fa-facebook"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="block py-2 px-3 rounded-sm md:p-2 hover:text-[#4da674] transition-all"
+            aria-current="page"
+            ><i class="fab fa-tiktok"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="block py-2 px-3 rounded-sm md:p-2 hover:text-[#4da674] transition-all"
+            aria-current="page"
+            ><i class="fab fa-twitter"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="block py-2 px-3 rounded-sm md:p-2 hover:text-[#4da674] transition-all"
+            aria-current="page"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+        </li>
+        <li>
+          <a
+            href="#"
+            class="block py-2 px-3 rounded-sm md:p-2 hover:text-[#4da674] transition-all"
+            aria-current="page"
+            ><i class="fab fa-youtube"></i
+          ></a>
+        </li>
+
+        @if(!isLogin()){
+        <li>
+          <a
+            routerLink="/login"
+            routerLinkActive="bg-green-600 text-white"
+            class="block py-2 px-3 text-gray-700 rounded-sm hover:bg-[#0f4d50] hover:text-[#c1e6ba] transition-all"
+            aria-current="page"
+            >login</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/register"
+            routerLinkActive="bg-green-600 text-white"
+            class="block py-2 px-3 text-gray-700 rounded-sm hover:bg-[#0f4d50] hover:text-[#c1e6ba] transition-all"
+            aria-current="page"
+            >register</a
+          >
+        </li>
+        } @else {
+
+        <li>
+          <a
+            routerLink="/cart"
+            routerLinkActive="text-green-600"
+            class="block text-2xl py-2 px-3 text-gray-700 rounded-sm relative hover:text-[#0f4d50] transition-all"
+            aria-current="page"
+          >
+            <i
+              class="fas fa-cart-shopping hover:text-green-700 transition-all"
+            ></i>
+            <span
+              class="text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm bg-green-900 text-green-300 absolute top-0 left-0"
+            >
+              {{ countCart() }}
+            </span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            (click)="logOut()"
+            role="button"
+            class="cursor-pointer block py-2 px-3 bg-green-600 text-white border rounded hover:bg-[#0f4d50] hover:text-[#c1e6ba] transition-all"
+            aria-current="page"
+          >
+            signout
+          </a>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>

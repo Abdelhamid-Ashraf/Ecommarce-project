@@ -1,0 +1,75 @@
+<section class="container bg-gray-100 rounded shadow p-4 mx-auto">
+  <div class="mb-4">
+    <h1 class="text-center text-3xl text-green-600 mb-7">Shop Cart</h1>
+
+    <div class="flex justify-between items-center">
+      <span class="text-green-600 text-2xl"
+        >Total Cart Price : {{ cartDetails.totalCartPrice | currency : "GBP" }}
+      </span>
+
+      <button
+        (click)="clearItems()"
+        class="cursor-pointer block py-2 px-3 bg-rose-800 text-white border rounded hover:bg-rose-900 transition-all"
+      >
+        Clear Cart
+      </button>
+    </div>
+  </div>
+
+  @for (prod of cartDetails.products; track prod.product._id) {
+  <div
+    class="grid md:grid-cols-[10%_minmax(0,1fr)] border-b border-gray-200 mb-2"
+  >
+    <div>
+      <img
+        [src]="prod.product.imageCover"
+        class="w-full"
+        [alt]="prod.product.title"
+      />
+    </div>
+
+    <div class="ps-4 flex justify-between items-center">
+      <div class="flex flex-col items-start gap-3">
+        <h3>{{ prod.product.title }}</h3>
+        <h4>Price : {{ prod.price | currency : "GBP" }}</h4>
+        <button (click)="removeItem(prod.product._id)" class="cursor-pointer">
+          <i class="fas fa-trash-can text-green-600"></i> Remove
+        </button>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button
+          (click)="updateCount(prod.product._id, prod.count + 1)"
+          class="cursor-pointer text-green-600 text-3xl"
+        >
+          <i class="fa-regular fa-square-plus"></i>
+        </button>
+        <span> {{ prod.count }} </span>
+        <button
+          (click)="updateCount(prod.product._id, prod.count - 1)"
+          class="cursor-pointer text-green-600 text-3xl"
+        >
+          <i class="fa-regular fa-square-minus"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+
+  <div class="flex justify-between items-center mt-5">
+    <button
+      (click)="saveCartId(cartDetails._id)"
+      routerLink="/checkout"
+      class="cursor-pointer block py-2 px-3 bg-green-600 text-white border rounded hover:bg-green-700 transition-all"
+    >
+      Checkout
+    </button>
+
+    <button
+      routerLink="/allorders"
+      class="cursor-pointer block py-2 px-3 bg-green-600 text-white border rounded hover:bg-green-700 transition-all"
+    >
+      All Orders
+    </button>
+  </div>
+</section>
