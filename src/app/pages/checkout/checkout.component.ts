@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { OrdersService } from '../../core/services/orders/orders.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -16,6 +17,7 @@ import { OrdersService } from '../../core/services/orders/orders.service';
 export class CheckoutComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly ordersService = inject(OrdersService);
+  private readonly router = inject(Router);
   cartId: any;
 
   checkOutForm: FormGroup = this.formBuilder.group({
@@ -44,6 +46,7 @@ export class CheckoutComponent {
           console.log(res);
           if (res.status === 'success') {
             open(res.session.url, '_self');
+            this.router.navigate(['./allorders']);
           }
         },
         error: (err) => {
